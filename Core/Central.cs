@@ -12,8 +12,6 @@ namespace PortiaHelper.Core
 
 		public bool IsInsideInventory { get; set; }
 
-		public bool ItemSpawnerLoaded { get; set; }
-
 		public PackageUIBase CurrentStorage { get; set; }
 
 		public bool ItemDbLoaded
@@ -25,7 +23,6 @@ namespace PortiaHelper.Core
 
 		public Central() {
 			IsInsideInventory = false;
-			ItemSpawnerLoaded = false;
 		}
 	}
 }
