@@ -2,6 +2,7 @@
 using System.Linq;
 using Harmony;
 using Pathea.ItemSystem;
+using PortiaHelper.Core.Loaders;
 
 namespace PortiaHelper.Core.Patchers
 {
@@ -15,6 +16,8 @@ namespace PortiaHelper.Core.Patchers
 				RawItem = ib,
 				Name = TextMgr.GetStr(ib.NameID)
 			});
+
+			ItemSpawnerLoader.Load();
 		}
 	}
 }
