@@ -1,21 +1,15 @@
 ﻿using UnityEngine;
-using Pathea;
-using Pathea.ModuleNs;
 using PortiaHelper.Gui;
 
 namespace PortiaHelper.Core.Loaders
 {
 	public static class ItemSpawnerLoader
 	{
-		public static void Load(GameObject playUiObject) {
-			if (Module<Player>.Self == null) {
-				return;
-			}
+		public static void Load() {
+			var obj = Camera.main.gameObject;
 
-			if (!Central.Instance.ItemSpawnerLoaded) {
-				Central.Instance.ItemSpawnerLoaded = true;
-
-				playUiObject.AddComponent<ItemSpawnerGui>();
+			if (Camera.main.GetComponent<ItemSpawnerGui>() is null) {
+				Camera.main.gameObject.AddComponent<ItemSpawnerGui>();
 			}
 		}
 	}
