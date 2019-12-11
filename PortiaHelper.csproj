@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{86A069AC-92AF-40E7-8499-8FF0759D32BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PortiaHelper</RootNamespace>
+    <AssemblyName>PortiaHelper</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>false</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony-1.2">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityModManager\0Harmony-1.2.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityModManager">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Central.cs" />
+    <Compile Include="Core\CursorUtil.cs" />
+    <Compile Include="Core\DbItem.cs" />
+    <Compile Include="Core\DebounceDispatcher.cs" />
+    <Compile Include="Core\Loaders\ItemSpawnerLoader.cs" />
+    <Compile Include="Core\Patchers\ItemDataPatcher.cs" />
+    <Compile Include="Core\Patchers\ItemDuplicatorPatcher.cs" />
+    <Compile Include="Core\Patchers\PlayUiPatcher.cs" />
+    <Compile Include="Gui\ItemSpawner.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Core\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Modules\ItemDuplicator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>start XCOPY /Y /R "$(TargetPath)" "E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Mods\$(ProjectName)\$(ProjectName).dll*"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
