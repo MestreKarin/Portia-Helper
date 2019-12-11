@@ -88,14 +88,19 @@
     <Compile Include="Core\DbItem.cs" />
     <Compile Include="Core\DebounceDispatcher.cs" />
     <Compile Include="Core\Loaders\ItemSpawnerLoader.cs" />
+    <Compile Include="Core\Loaders\PlayerAddonsLoader.cs" />
     <Compile Include="Core\Patchers\ItemDataPatcher.cs" />
     <Compile Include="Core\Patchers\ItemDuplicatorPatcher.cs" />
-    <Compile Include="Core\Patchers\PlayUiPatcher.cs" />
+    <Compile Include="Core\Patchers\PlayerPatcher.cs" />
     <Compile Include="Gui\ItemSpawner.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Modules\InfiniteVp.cs" />
     <Compile Include="Modules\ItemDuplicator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
