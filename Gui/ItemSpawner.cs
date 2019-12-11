@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Pathea;
-using Pathea.AimSystemNs;
 using Pathea.ModuleNs;
 using Pathea.UISystemNs;
 using UnityEngine;
@@ -14,21 +13,35 @@ namespace PortiaHelper.Gui
 	{
 		#region Main Window Variables
 		private bool _toShow = false;
-		private int _width = 744;
+		private int _width = 376;
 		private int _height = 507;
 
 		private Rect _windowRect;
 
 		private int _currentPage;
-		private int _itemsPerPage = 50;
-		private double _itemsPerRow = 10;
+		private int _itemsPerPage = 25;
+		private double _itemsPerRow = 5;
 		private int _totalPages;
 
 		private string _searchText;
 		private string _paginationText;
 
 		private List<Rect> _coordsCache;
+
+		/// <summary>
+		/// Indicate if <see cref="_items"/> is updating.
+		/// </summary>
+		private bool _updating = false;
+
+		/// <summary>
+		/// Will hold no more than  <see cref="_itemsPerPage"/>
+		/// </summary>
 		private IEnumerable<DbItem> _items;
+
+		/// <summary>
+		/// This will hold all filtered items, it can have
+		/// hundreds/thousands of items.
+		/// </summary>
 		private IEnumerable<DbItem> _filteredItems;
 
 		private DebounceDispatcher _debouncer = new DebounceDispatcher();
@@ -41,9 +54,9 @@ namespace PortiaHelper.Gui
 			_windowRect = new Rect(x, y, _width, _height);
 
 			_currentPage = 1;
-			_totalPages = (int)Math.Ceiling(Central.Instance.ItemDB.Count() / 50d);
+			_totalPages = (int)Math.Ceiling(Central.Instance.ItemDB.Count() / (double)_itemsPerPage);
 			_searchText = "";
-			_paginationText = $"1 ~ 50 of {Central.Instance.ItemDB.Count()} — Page 1 of {_totalPages}";
+			_paginationText = $"1 ~ {_itemsPerPage} of {Central.Instance.ItemDB.Count()} — Page 1 of {_totalPages}";
 
 			_items = Central.Instance.ItemDB;
 			_filteredItems = _items;
@@ -68,13 +81,14 @@ namespace PortiaHelper.Gui
 		}
 
 		void RenderWindow(int windowId) {
-			var newText = GUI.TextField(new Rect(16, 16, 712, 32), _searchText);
+			var newText = GUI.TextField(new Rect(16, 16, 344, 32), _searchText);
 
 			if (newText != _searchText) {
 				_searchText = newText;
 
-				_debouncer.Debounce(400, (obj) => {
+				_debouncer.Debounce(500, (obj) => {
 					_currentPage = 1;
+					_updating = true;
 
 					if (ValidSearchQuery()) {
 						_filteredItems = Central.Instance.ItemDB.Where(dbi => dbi.Name.IndexOf(_searchText) >= 0);
@@ -86,32 +100,35 @@ namespace PortiaHelper.Gui
 						_filteredItems = Central.Instance.ItemDB;
 					}
 
-					_totalPages = (int)Math.Ceiling(_filteredItems.Count() / 50d);
+					_totalPages = (int)Math.Ceiling(_filteredItems.Count() / (double)_itemsPerPage);
 
-					if (_filteredItems.Count() >= 50) {
-						_paginationText = $"1 ~ 50 of {_filteredItems.Count()} — Page 1 of {_totalPages}";
+					if (_filteredItems.Count() >= _itemsPerPage) {
+						_paginationText = $"1 ~ {_itemsPerPage} of {_filteredItems.Count()} — Page 1 of {_totalPages}";
 					} else {
 						_paginationText = $"1 ~ {_filteredItems.Count()} of {_filteredItems.Count()} — Page 1 of {_totalPages}";
 					}
 
 					_items = _filteredItems.Take(_itemsPerPage);
+					_updating = false;
 				});
 			}
 
-			for (var i = 0; i < _items.Count(); i++) {
-				if (i >= _itemsPerPage) {
-					break;
-				}
+			if (!_updating) {
+				for (var i = 0; i < _items.Count(); i++) {
+					if (i >= _itemsPerPage) {
+						break;
+					}
 
-				GUI.DrawTexture(_coordsCache[i], UIUtils.GetSpriteByPath(_items.ElementAt(i).RawItem.IconPath).texture);
+					GUI.DrawTexture(_coordsCache[i], UIUtils.GetSpriteByPath(_items.ElementAt(i).RawItem.IconPath).texture);
+				}
 			}
 
 			// Pagination label.
-			GUI.Label(new Rect(16, 471, 400, 20), _paginationText);
+			GUI.Label(new Rect(16, 471, 250, 20), _paginationText);
 
 			// Pagination back button.
 			if (_currentPage > 1) {
-				if (GUI.Button(new Rect(656, 463, 28, 28), "<")) {
+				if (GUI.Button(new Rect(288, 463, 28, 28), "<")) {
 					_currentPage -= 1;
 					_items = _filteredItems.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage);
 					_paginationText = $"{1 + (_currentPage - 1) * _itemsPerPage} ~ {_currentPage * _items.Count()} of {_filteredItems.Count()} — Page {_currentPage} of {_totalPages}";
@@ -120,7 +137,7 @@ namespace PortiaHelper.Gui
 
 			// Pagination forward button.
 			if (_currentPage < _totalPages) {
-				if (GUI.Button(new Rect(700, 463, 28, 28), ">")) {
+				if (GUI.Button(new Rect(332, 463, 28, 28), ">")) {
 					_currentPage += 1;
 					_items = _filteredItems.Skip((_currentPage - 1) * _itemsPerPage).Take(_itemsPerPage);
 					_paginationText = $"{1 + (_currentPage - 1) * _itemsPerPage} ~ {_currentPage * _items.Count()} of {_filteredItems.Count()} — Page {_currentPage} of {_totalPages}";
