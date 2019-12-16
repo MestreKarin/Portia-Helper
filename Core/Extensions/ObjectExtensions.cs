@@ -8,7 +8,7 @@ namespace PortiaHelper.Core.Extensions
 		public static T ReadProperty<T>(this object obj, string name) {
 			Type tp = obj.GetType();
 
-			var pi = tp.GetProperty(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+			var pi = tp.GetProperty(name, BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
 			try {
 				var pv = pi.GetValue(obj, null);
