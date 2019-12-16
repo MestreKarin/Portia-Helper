@@ -22,8 +22,7 @@ namespace PortiaHelper.Core.Patchers
 					continue;
 				}
 
-				var a = st.gameObject.AddComponent<ItemDuplicator>();
-				a.enabled = true;
+				st.gameObject.AddComponent<ItemDuplicator>();
 			}
 		}
 	}
