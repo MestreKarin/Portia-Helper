@@ -24,11 +24,13 @@ namespace PortiaHelper.Modules
 			}
 
 			Central.Instance.IsInsideInventory = true;
-			Central.Instance.CurrentStorage = _storage;
 		}
 
 		void Update() {
-			// TODO: Make open everywhere.
+			if (Input.GetKeyUp(KeyCode.KeypadMinus) && !_inDupMode) {
+				_storage.DeleteItem();
+			}
+
 			if (Input.GetKey(KeyCode.KeypadMultiply) && !_inDupMode) {
 				if (_storage is null) {
 					Main.Logger.Log("Storage is null, can't duplicate!");
@@ -38,7 +40,6 @@ namespace PortiaHelper.Modules
 				ItemObject curSelected = _storage.ReadProperty<ItemObject>("curSelectItem");
 
 				if (curSelected != null) {
-					int curSelectedIndex = _storage.ReadProperty<int>("curSelectItemIndex");
 					_inDupMode = true;
 
 					Action<int> confirm = delegate (int num) {
@@ -66,7 +67,7 @@ namespace PortiaHelper.Modules
 				_dupWindow.GetComponent<PackageItemDelete>().Exit(false);
 			}
 
-			Central.Instance.IsInsideInventory = false;
+			//Central.Instance.IsInsideInventory = false;
 		}
 
 		void ShowDupWindow(ItemObject item, Action<int> confirm) {
