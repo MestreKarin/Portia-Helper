@@ -1,8 +1,21 @@
 # Portia Helper
 A simple mod to help you at My Time at Portia
 
-### Item Duplicator
-Open your bag, select the item and hit <kbd>*</kbd> (keypad multiply).
-
-### Item Spawner
-Open your bag and hit <kbd>Insert</kbd>. Use the text field to search items (by name). To spawn the item, just click on it.
+# Features
+* **Items**
+  * *Item Duplicator*
+    * Open your bag/storage, select the item and hit <kbd>*</kbd> (keypad multiply).
+  * *Brute Remover*
+    * Open your bag/storage, select the item and hit <kbd>-</kbd> (keypad minus).
+  * *Item Spawner (<kbd>Insert</kbd> to open)*
+* **Player (<kbd>Home</kbd> to open)**
+  * *God Mode*
+  * *Infinite Stamina*
+  * *Infinite VP*
+    * Run/jump/dash forever.
+  * *No Drops*
+    * Only applies to mobs.
+  * *Exp Multiplier*
+  * *Gold Multiplier*
+  * *Jetpack anywhere*
+    * With extended fly time!
