@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Harmony;
 using Pathea.ItemSystem;
-using PortiaHelper.Core.Loaders;
+using PortiaHelper.Models;
 
 namespace PortiaHelper.Core.Patchers
 {
@@ -12,12 +13,56 @@ namespace PortiaHelper.Core.Patchers
 	{
 		[HarmonyPostfix]
 		public static void Postfix(List<ItemBaseConfData> ___itemBaseList) {
-			Central.Instance.ItemDB = ___itemBaseList.Where(ib => ib.CanPickup && ib.HaveIcon).Select(ib => new DbItem {
-				RawItem = ib,
-				Name = TextMgr.GetStr(ib.NameID)
-			});
+			// Load sprites offsets.
+			var offsets = File.ReadAllLines($"{Central.Instance.HomePath}/offsets.txt");
 
-			ItemSpawnerLoader.Load();
+			Central.Instance.ItemOffsets = new Dictionary<string, int[]>(offsets.Length);
+
+			foreach (var off in offsets) {
+				var offSplit = off.Split('=');
+
+				Central.Instance.ItemOffsets.Add(offSplit[0], offSplit[1].Split(',').Select(s => int.Parse(s)).ToArray());
+			}
+
+			// Load items.
+			Central.Instance.ItemDB = new List<DbItem>();
+
+			var validItems = ___itemBaseList.Where(i => Central.Instance.ItemOffsets.ContainsKey(i.IconPath.Replace("Sprites/Package/", "")))
+				.GroupBy(i => i.NameID);
+
+			foreach (var kv in validItems) {
+				if (kv.Count() == 1) {
+					var ib = kv.First();
+					var name = TextMgr.GetStr(ib.NameID).ToLower();
+
+					if (name.Trim() == "") {
+						continue;
+					}
+
+					Central.Instance.ItemDB.Add(new DbItem {
+						ID = ib.ID,
+						Name = TextMgr.GetStr(ib.NameID).ToLower(),
+						NameID = ib.NameID,
+						IconName = ib.IconPath.Replace("Sprites/Package/", "")
+					});
+
+					continue;
+				}
+
+				var first = kv.ElementAt(0);
+				var firstName = TextMgr.GetStr(first.NameID).ToLower();
+
+				if (firstName.Trim() == "") {
+					continue;
+				}
+
+				Central.Instance.ItemDB.Add(new DbItem(kv.Skip(1).Select(i => new int[] { i.UseLevel, i.ID })) {
+					ID = first.ID,
+					Name = firstName,
+					NameID = first.NameID,
+					IconName = first.IconPath.Replace("Sprites/Package/", "")
+				});
+			}
 		}
 	}
 }
