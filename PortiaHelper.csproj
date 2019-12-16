@@ -65,6 +65,10 @@
       <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>E:\Program Files (x86)\SteamLibrary\steamapps\common\My Time At Portia\Portia_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -84,17 +88,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Central.cs" />
-    <Compile Include="Core\CursorUtil.cs" />
-    <Compile Include="Core\DbItem.cs" />
+    <Compile Include="Models\DbItem.cs" />
     <Compile Include="Core\DebounceDispatcher.cs" />
-    <Compile Include="Core\Loaders\ItemSpawnerLoader.cs" />
-    <Compile Include="Core\Loaders\PlayerAddonsLoader.cs" />
+    <Compile Include="Core\Extensions\RectExtensions.cs" />
     <Compile Include="Core\Patchers\ItemDataPatcher.cs" />
     <Compile Include="Core\Patchers\ItemDuplicatorPatcher.cs" />
-    <Compile Include="Core\Patchers\PlayerPatcher.cs" />
-    <Compile Include="Gui\ItemSpawner.cs" />
+    <Compile Include="Core\Patchers\JetPackPatcher.cs" />
+    <Compile Include="Core\Patchers\PlayerPatchers.cs" />
+    <Compile Include="Core\Patchers\PlayerUICtrPatcher.cs" />
+    <Compile Include="Core\TextureLoader.cs" />
+    <Compile Include="Gui\ItemSpawnerGui.cs" />
+    <Compile Include="Gui\PlayerOptionsGui.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Models\PlayerOptions.cs" />
+    <Compile Include="Modules\GuiActivator.cs" />
     <Compile Include="Modules\InfiniteVp.cs" />
     <Compile Include="Modules\ItemDuplicator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
