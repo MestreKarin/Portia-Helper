@@ -16,7 +16,7 @@ namespace PortiaHelper.Gui
 		protected string _goldInfo;
 
 		void Awake() {
-			_windowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 200, 200, 400);
+			_windowRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 150, 200, 300);
 
 			_expRatioStr = Central.Instance.PlayerOptions.ExpRatio.ToString();
 			_goldRatioStr = Central.Instance.PlayerOptions.GoldRatio.ToString();
