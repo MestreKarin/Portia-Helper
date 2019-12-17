@@ -103,8 +103,8 @@
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Models\PlayerOptions.cs" />
     <Compile Include="Modules\GuiActivator.cs" />
-    <Compile Include="Modules\InfiniteVp.cs" />
     <Compile Include="Modules\ItemDuplicator.cs" />
+    <Compile Include="Modules\JetPackToggler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

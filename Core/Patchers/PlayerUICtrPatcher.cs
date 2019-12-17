@@ -16,6 +16,10 @@ namespace PortiaHelper.Core.Patchers
 			if (uiCtr.gameObject.GetComponent<GuiActivator>() is null) {
 				uiCtr.gameObject.AddComponent<GuiActivator>();
 			}
+
+			if (uiCtr.gameObject.GetComponent<JetPackToggler>() is null) {
+				uiCtr.gameObject.AddComponent<JetPackToggler>();
+			}
 		}
 	}
 }
