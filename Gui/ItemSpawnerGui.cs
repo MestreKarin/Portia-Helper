@@ -75,7 +75,7 @@ namespace PortiaHelper.Gui
 			var x = Screen.width / 2 - _width / 2;
 			var y = Screen.height / 2 - _height / 2;
 
-			_atlas = TGALoader.LoadTGA($"{Central.Instance.HomePath}/resources/ui.tga", false);
+			_atlas = TGALoader.LoadTGA($"{Central.Instance.HomePath}/resources/icons.tga", false);
 			_windowRect = new Rect(x, y, _width, _height);
 
 			_coordsCache = new List<Rect>();
@@ -233,7 +233,7 @@ namespace PortiaHelper.Gui
 			
 			foreach (var it in _items) {
 				var off = Central.Instance.ItemOffsets[it.IconName];
-				_spritesCache.Add(new Rect(off[0], off[1], 64, 64).Normalize(4096));
+				_spritesCache.Add(new Rect(off[0], off[1], 56, 56).Normalize(_atlas.width));
 			}
 		}
 
