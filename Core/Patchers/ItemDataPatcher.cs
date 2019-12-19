@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Harmony;
+using Harmony12;
 using Pathea.ItemSystem;
 using PortiaHelper.Models;
 
 namespace PortiaHelper.Core.Patchers
 {
-	[HarmonyPatch(typeof(ItemDataMgr))]
-	[HarmonyPatch("OnLoad")]
+	[HarmonyPatch(typeof(ItemDataMgr), "OnLoad")]
 	static class ItemDataPatcher
 	{
 		[HarmonyPostfix]

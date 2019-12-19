@@ -1,17 +1,14 @@
 ﻿using System;
-using UnityEngine;
-using Harmony;
+using Harmony12;
 using Pathea;
 using Pathea.ActorNs;
 using Pathea.ActorDeadDropNs;
-using Pathea.ItemDropNs;
 using Pathea.ItemSystem;
 using Pathea.ModuleNs;
 
 namespace PortiaHelper.Core.Patchers
 {
-	[HarmonyPatch(typeof(Actor))]
-	[HarmonyPatch("cp", MethodType.Setter)]
+	[HarmonyPatch(typeof(Actor), "cp", MethodType.Setter)]
 	internal static class PlayerInfiniteStamina
 	{
 		[HarmonyPrefix]
@@ -26,8 +23,7 @@ namespace PortiaHelper.Core.Patchers
 		}
 	}
 
-	[HarmonyPatch(typeof(Actor))]
-	[HarmonyPatch("hp", MethodType.Setter)]
+	[HarmonyPatch(typeof(Actor), "hp", MethodType.Setter)]
 	internal static class PlayerGodMode
 	{
 		[HarmonyPrefix]
@@ -42,8 +38,7 @@ namespace PortiaHelper.Core.Patchers
 		}
 	}
 
-	[HarmonyPatch(typeof(Actor))]
-	[HarmonyPatch("Vp", MethodType.Setter)]
+	[HarmonyPatch(typeof(Actor), "Vp", MethodType.Setter)]
 	internal static class PlayerInfiniteVp
 	{
 		[HarmonyPrefix]
@@ -54,8 +49,7 @@ namespace PortiaHelper.Core.Patchers
 		}
 	}
 
-	[HarmonyPatch(typeof(Player))]
-	[HarmonyPatch("AddExp")]
+	[HarmonyPatch(typeof(Player), "AddExp")]
 	internal static class PlayerExpMultiplier
 	{
 		[HarmonyPrefix]
@@ -64,8 +58,7 @@ namespace PortiaHelper.Core.Patchers
 		}
 	}
 
-	[HarmonyPatch(typeof(ItemBag))]
-	[HarmonyPatch("ChangeMoney")]
+	[HarmonyPatch(typeof(ItemBag), "ChangeMoney")]
 	internal static class PlayerGoldMultiplier
 	{
 		[HarmonyPrefix]
@@ -74,12 +67,11 @@ namespace PortiaHelper.Core.Patchers
 		}
 	}
 
-	[HarmonyPatch(typeof(ActorDeadDropModule))]
-	[HarmonyPatch("Handler")]
+	[HarmonyPatch(typeof(ActorDeadDropModule), "Handler")]
 	internal static class NoDrop
 	{
 		[HarmonyPrefix]
-		static bool Prefix(ref KillEventArg arg) {
+		static bool Prefix() {
 			return !Central.Instance.PlayerOptions.NoDrop;
 		}
 	}

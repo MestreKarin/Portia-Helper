@@ -1,10 +1,9 @@
-﻿using Harmony;
+﻿using Harmony12;
 using Pathea.EquipmentNs;
 
 namespace PortiaHelper.Core.Patchers
 {
-	[HarmonyPatch(typeof(JetPack))]
-	[HarmonyPatch("OnEnable")]
+	[HarmonyPatch(typeof(JetPack), "OnEnable")]
 	public static class JetPackPatcher
 	{
 		[HarmonyPostfix]

@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using Harmony;
+using Harmony12;
 using Pathea.UISystemNs;
 using PortiaHelper.Modules;
 
 namespace PortiaHelper.Core.Patchers
 {
-	[HarmonyPatch(typeof(PackageUIBase))]
-	[HarmonyPatch("OnEnable")]
+	[HarmonyPatch(typeof(PackageUIBase), "OnEnable")]
 	static class ItemDuplicatorLoader
 	{
 		[HarmonyPostfix]

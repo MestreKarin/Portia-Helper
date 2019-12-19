@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using Harmony;
+using Harmony12;
 using Pathea.UISystemNs.PlayUI;
 using PortiaHelper.Modules;
 
 namespace PortiaHelper.Core.Patchers
 {
-	[HarmonyPatch(typeof(PlayUICtr))]
-	[HarmonyPatch("OnEnable")]
+	[HarmonyPatch(typeof(PlayUICtr), "OnEnable")]
 	static class PlayerUICtrPatcher
 	{
 		[HarmonyPostfix]
