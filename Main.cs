@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Harmony;
+using Harmony12;
 using UnityModManagerNet;
 using PortiaHelper.Core;
 
@@ -13,24 +13,28 @@ namespace PortiaHelper
 
 		public static bool Load(UnityModManager.ModEntry modEntry) {
 			Logger = modEntry.Logger;
-
+			
 			Central.Instance.HomePath = modEntry.Path;
 
 			try {
+				if (!PatchController.Instance.CanApplyPatches()) {
+					Logger.Log($"========== PORTIA HELPER - CONFLICTS FOUND ==========");
+					Logger.Log("In order to use Portia Helper, disable these mods (and restart the game):");
+
+					foreach (var cm in PatchController.Instance.ConflictedMods()) {
+						Logger.Log($"-> {cm}");
+					}
+					
+					return false;
+				}
+
 				harmonyInstance = HarmonyInstance.Create(modEntry.Info.Id);
 				harmonyInstance.PatchAll(Assembly.GetExecutingAssembly());
-
-				//modEntry.OnUpdate = OnUpdate;
 			} catch (Exception ex) {
 				modEntry.Logger.LogException(ex);
 			}
 
 			return true;
 		}
-
-		/*
-		public static void OnUpdate(UnityModManager.ModEntry modEntry, float val) {
-			//ItemSpawnerLoader.Load();
-		}*/
 	}
 }
