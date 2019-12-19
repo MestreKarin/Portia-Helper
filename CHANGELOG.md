@@ -1,3 +1,8 @@
+## v2.1.0 (2019-12-19)
+
+* Added compatibility check with other mods.
+* Removed `IsInsideInventory` property.
+
 ## v2.0.0 (2019-12-16)
 
 ### Changed
