@@ -16,6 +16,9 @@ namespace PortiaHelper.Core
 			}
 		}
 
+		/// <summary>
+		/// Used to pause time.
+		/// </summary>
 		public BoolTrue MouseLocker { get; set; }
 
 		/// <summary>
@@ -35,8 +38,6 @@ namespace PortiaHelper.Core
 
 		public PlayerOptions PlayerOptions { get; private set; }
 
-		public bool IsInsideInventory { get; set; }
-
 		public bool ItemDbLoaded
 		{
 			get {
@@ -46,7 +47,6 @@ namespace PortiaHelper.Core
 
 		public Central() {
 			MouseLocker = new BoolTrue();
-			IsInsideInventory = false;
 			PlayerOptions = new PlayerOptions() {
 				ExpRatio = 1f,
 				GoldRatio = 1f

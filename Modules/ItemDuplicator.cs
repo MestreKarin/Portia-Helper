@@ -22,8 +22,6 @@ namespace PortiaHelper.Modules
 			if (_storage is null) {
 				Main.Logger.Log("PackageUIBase component not found!");
 			}
-
-			Central.Instance.IsInsideInventory = true;
 		}
 
 		void Update() {
@@ -58,16 +56,10 @@ namespace PortiaHelper.Modules
 			}
 		}
 
-		void OnEnable() {
-			Central.Instance.IsInsideInventory = true;
-		}
-
 		void OnDisable() {
 			if (_dupWindow != null && _dupWindow.activeSelf) {
 				_dupWindow.GetComponent<PackageItemDelete>().Exit(false);
 			}
-
-			//Central.Instance.IsInsideInventory = false;
 		}
 
 		void ShowDupWindow(ItemObject item, Action<int> confirm) {
