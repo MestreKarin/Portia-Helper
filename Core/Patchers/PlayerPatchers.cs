@@ -54,7 +54,12 @@ namespace PortiaHelper.Core.Patchers
 	{
 		[HarmonyPrefix]
 		static void Prefix(ref int exp) {
-			exp = exp > 0 ? Convert.ToInt32(exp * Central.Instance.PlayerOptions.ExpRatio) : exp;
+            try {
+                exp = exp > 0 ? Convert.ToInt32(exp * Central.Instance.PlayerOptions.ExpRatio) : exp;
+            } catch (OverflowException) {
+                Main.Logger.Log("Capping exp increase to max Int32");
+                exp = Int32.MaxValue;
+            }
 		}
 	}
 
@@ -63,7 +68,12 @@ namespace PortiaHelper.Core.Patchers
 	{
 		[HarmonyPrefix]
 		static void Prefix(ref int baseValue) {
-			baseValue = baseValue > 0 ? Convert.ToInt32(baseValue * Central.Instance.PlayerOptions.GoldRatio) : baseValue;
+            try {
+                baseValue = baseValue > 0 ? Convert.ToInt32(baseValue * Central.Instance.PlayerOptions.GoldRatio) : baseValue;
+            } catch (OverflowException) {
+                Main.Logger.Log("Capping money increase to max Int32");
+                baseValue = Int32.MaxValue;
+            }
 		}
 	}
 
